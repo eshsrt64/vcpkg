@@ -39,6 +39,7 @@ vcpkg_from_github(
         opencascade-7.8.0.patch
         no-libharu-for-ioexport.patch
         no-libproj-for-netcdf.patch
+        octree-node.patch
 		fix-tbbsmptool.patch #https://gitlab.kitware.com/vtk/vtk/-/merge_requests/11530
 )
 
@@ -167,8 +168,8 @@ endif()
 if("qt" IN_LIST FEATURES)
     file(READ "${CURRENT_INSTALLED_DIR}/share/qtbase/vcpkg_abi_info.txt" qtbase_abi_info)
     if(qtbase_abi_info MATCHES "(^|;)gles2(;|$)")
-        message(FATAL_ERROR "VTK assumes qt to be build with desktop opengl. As such trying to build vtk with qt using GLES will fail.") 
-        # This should really be a configure error but using this approach doesn't require patching. 
+        message(FATAL_ERROR "VTK assumes qt to be build with desktop opengl. As such trying to build vtk with qt using GLES will fail.")
+        # This should really be a configure error but using this approach doesn't require patching.
     endif()
 endif()
 
@@ -260,7 +261,7 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     "mpi"          VTK_USE_MPI
     "all"          VTK_BUILD_ALL_MODULES
 	"tbb"          VTK_SMP_ENABLE_TBB
-	"openmp"       VTK_SMP_ENABLE_OPENMP      
+	"openmp"       VTK_SMP_ENABLE_OPENMP
 )
 
 # =============================================================================
